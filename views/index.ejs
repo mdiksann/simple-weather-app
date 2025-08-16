@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="card w-full max-w-md p-8 text-center">
+        <form action="/weather" method="POST" class="flex flex-col gap-4">
+            <input type="text" name="city" placeholder="Enter a City" class="w-full">
+            <button type="submit" class="w-full">Get Weather</button>
+        </form>
+
+        <% if (weather) { %>
+            <div class="weather-info mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+                <p class="text-xl mb-1">Temperature: <%= weather.temperature %>°C</p>
+                <p class="text-lg capitalize">Condition: <%= weather.description %></p>
+            </div>
+        <% } %>
+
+        <% if (error) { %>
+            <div class="error-message mt-8 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
