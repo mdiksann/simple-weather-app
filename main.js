@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios'); 
 const ejs = require('ejs'); 
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -11,7 +12,7 @@ app.set('views', __dirname + '/views');
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     res.render('index', { weather: null, error: null });
@@ -32,9 +33,9 @@ app.post('/weather', async (req, res) => {
         res.render('index', { weather: weather, error: null });
 
     } catch (error) {
-        let errorMessage = 'Gagal mendapatkan data cuaca. Silakan coba lagi.';
+        let errorMessage = 'Failed to fetch weather data. Please try again.';
         if (error.response && error.response.status === 404) {
-            errorMessage = 'Kota tidak ditemukan. Mohon periksa ejaan.';
+            errorMessage = 'City not found. Please check the spelling.';
         } else {
             console.error('Error fetching weather data:', error.message);
         }
